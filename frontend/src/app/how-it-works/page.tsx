@@ -104,7 +104,7 @@ export default function HowItWorks() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            It&apos;s a simple, three-step process to get clarity on your legal documents. and identify potentially problematic clauses. Here's how to use our tool.
+            It&apos;s a simple, three-step process to get clarity on your legal documents. and identify potentially problematic clauses. Here&apos;s how to use our tool.
           </motion.p>
         </div>
 

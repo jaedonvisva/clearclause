@@ -230,7 +230,7 @@ export default function Analyzer() {
               >
                 <h2 className="text-xl font-semibold text-white mb-4">Upload Document</h2>
                 <p className="text-gray-300 mb-6">
-                  Upload your legal document in PDF format. We'll analyze it and identify potentially problematic clauses.
+                  Upload your legal document in PDF format. We&apos;ll analyze it and identify potentially problematic clauses.
                 </p>
                 <form onSubmit={handleFileSubmit}>
                   <div className="mb-6">

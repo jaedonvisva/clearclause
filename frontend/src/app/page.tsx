@@ -225,14 +225,17 @@ export default function Home() {
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <motion.div
+            className="grid md:grid-cols-3 gap-8"
+            variants={featuresVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
             {features.map((feature, index) => (
               <motion.div 
                 key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.2 }}
-                viewport={{ once: true }}
+                variants={featureItemVariants}
                 className="group"
               >
                 <div className="bg-gray-800/50 backdrop-blur-sm p-8 rounded-2xl border border-gray-700/50 hover:border-gray-600/50 transition-all duration-300 hover:bg-gray-800/70 h-full">
@@ -248,7 +251,7 @@ export default function Home() {
                 </div>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </div>
 
@@ -263,10 +266,10 @@ export default function Home() {
           >
             <div className="bg-gradient-to-r from-gray-800/50 to-gray-900/50 backdrop-blur-sm rounded-3xl p-12 border border-gray-700/50">
               <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
-                Don't Sign Blind
+                Don&apos;t Sign Blind
               </h2>
               <p className="text-xl text-gray-300 mb-10 max-w-2xl mx-auto leading-relaxed">
-                Upload your contract now and discover what's really in the fine print. Knowledge is your best protection.
+                Upload your contract now and discover what&apos;s really in the fine print. Knowledge is your best protection.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
