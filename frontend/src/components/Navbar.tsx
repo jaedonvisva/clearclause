@@ -1,12 +1,10 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 export default function Navbar() {
-  const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -24,11 +22,6 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = [
-    { name: 'Home', href: '/' },
-    { name: 'Analyzer', href: '/analyzer' },
-    { name: 'How It Works', href: '/how-it-works' },
-  ];
 
   return (
     <motion.nav
@@ -61,11 +54,8 @@ export default function Navbar() {
               <Link href="/analyzer" className="text-gray-300 hover:text-white transition-colors font-medium">
                 Analyzer
               </Link>
-              <Link href="/how-it-works" className="relative text-gray-300 hover:text-white transition-colors font-medium">
+              <Link href="/how-it-works" className="text-gray-300 hover:text-white transition-colors font-medium">
                 How It Works
-                <span className="absolute -top-1 -right-6 bg-blue-500 text-white text-xs px-1.5 py-0.5 rounded-full font-bold">
-                  NEW
-                </span>
               </Link>
             </div>
           </div>

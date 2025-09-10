@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import Image from 'next/image';
 
 export default function HowItWorks() {
   const steps = [
@@ -26,7 +25,7 @@ export default function HowItWorks() {
     },
     {
       title: 'Review Analysis',
-      description: 'Our AI analyzes your document and identifies potentially problematic clauses, providing explanations and recommendations.',
+      description: 'Our AI analyzes your document, identifying potential issues, risks, and important clauses you should be aware of. It provides explanations and recommendations.',
       icon: (
         <svg className="w-10 h-10 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
@@ -74,7 +73,7 @@ export default function HowItWorks() {
       y: 0, 
       opacity: 1,
       transition: { 
-        type: "spring", 
+        type: 'spring' as const,
         stiffness: 100 
       }
     }
@@ -105,7 +104,7 @@ export default function HowItWorks() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            ClearClause uses advanced AI to analyze your legal documents and identify potentially problematic clauses. Here's how to use our tool.
+            It&apos;s a simple, three-step process to get clarity on your legal documents. and identify potentially problematic clauses. Here's how to use our tool.
           </motion.p>
         </div>
 

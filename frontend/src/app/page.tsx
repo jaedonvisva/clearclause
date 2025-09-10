@@ -94,25 +94,25 @@ export default function Home() {
     },
   ];
 
-  // Animation variants for staggered animations
-  const containerVariants = {
+  // Animation variants for the features section
+  const featuresVariants = {
     hidden: { opacity: 0 },
-    visible: { 
+    visible: {
       opacity: 1,
-      transition: { 
-        staggerChildren: 0.2 
-      } 
+      transition: {
+        staggerChildren: 0.2
+      }
     }
   };
 
-  const itemVariants = {
+  const featureItemVariants = {
     hidden: { y: 20, opacity: 0 },
-    visible: { 
-      y: 0, 
+    visible: {
+      y: 0,
       opacity: 1,
-      transition: { 
-        type: "spring" as const, 
-        stiffness: 100 
+      transition: {
+        type: 'spring' as const,
+        stiffness: 100
       }
     }
   };

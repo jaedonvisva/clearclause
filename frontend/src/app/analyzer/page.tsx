@@ -21,6 +21,7 @@ export default function Analyzer() {
   const [context, setContext] = useState('');
   const [file, setFile] = useState<File | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [analysisProgress, setAnalysisProgress] = useState('');
   const [analysis, setAnalysis] = useState<AnalysisResult | null>(null);
   const [error, setError] = useState<string>('');
 
@@ -37,17 +38,23 @@ export default function Analyzer() {
 
     setIsAnalyzing(true);
     setError('');
+    setAnalysisProgress('Preparing document for analysis...');
 
     const formData = new FormData();
     formData.append('context', context);
     formData.append('file', file);
 
     try {
+      setAnalysisProgress('Uploading document...');
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+      setAnalysisProgress('Analyzing document content...');
+      
       const response = await fetch(`${apiUrl}/api/analyze`, {
         method: 'POST',
         body: formData,
       });
+      
+      setAnalysisProgress('Finalizing analysis...');
 
       const data = await response.json();
 
@@ -57,8 +64,9 @@ export default function Analyzer() {
 
       setAnalysis(data.analysis);
       setStep(3);
-    } catch (err: any) {
-      setError(err.message || 'An error occurred during analysis');
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : 'An error occurred during analysis';
+      setError(errorMessage);
     } finally {
       setIsAnalyzing(false);
     }
@@ -70,6 +78,7 @@ export default function Analyzer() {
     setFile(null);
     setAnalysis(null);
     setError('');
+    setAnalysisProgress('');
   };
 
   const getRiskLevelColor = (level: string) => {
@@ -86,23 +95,26 @@ export default function Analyzer() {
   };
 
   const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: { 
+    hidden: { opacity: 0, y: 20 },
+    visible: {
       opacity: 1,
-      transition: { 
-        staggerChildren: 0.1 
-      } 
+      y: 0,
+      transition: {
+        type: 'spring' as const,
+        stiffness: 100,
+        staggerChildren: 0.1
+      }
     }
   };
 
   const itemVariants = {
     hidden: { y: 20, opacity: 0 },
-    visible: { 
-      y: 0, 
+    visible: {
+      y: 0,
       opacity: 1,
-      transition: { 
-        type: "spring", 
-        stiffness: 100 
+      transition: {
+        type: 'spring' as const,
+        stiffness: 100
       }
     }
   };
@@ -297,11 +309,31 @@ export default function Analyzer() {
                     </button>
                   </div>
                 </form>
-                {error && (
+                {isAnalyzing ? (
+                  <div className="text-center py-8 space-y-6">
+                    <div className="relative">
+                      <div className="w-20 h-20 mx-auto relative">
+                        <div className="absolute inset-0 border-4 border-blue-500/20 rounded-full"></div>
+                        <div className="absolute inset-0 border-4 border-transparent border-t-blue-500 rounded-full animate-spin"></div>
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <div className="w-3 h-3 bg-blue-500 rounded-full animate-pulse"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <p className="text-lg font-medium text-white">Analyzing Document</p>
+                      <p className="text-sm text-gray-400 max-w-md mx-auto">{analysisProgress}</p>
+                      <div className="w-full bg-gray-700 rounded-full h-2.5 mt-4 max-w-sm mx-auto">
+                        <div className="bg-blue-600 h-2.5 rounded-full animate-pulse" style={{ width: '75%' }}></div>
+                      </div>
+                      <p className="text-xs text-gray-500 mt-2">This may take a moment...</p>
+                    </div>
+                  </div>
+                ) : error ? (
                   <div className="mt-4 p-3 bg-red-900/30 border border-red-700 rounded-lg">
                     <p className="text-red-300">{error}</p>
                   </div>
-                )}
+                ) : null}
               </motion.div>
             )}
 
